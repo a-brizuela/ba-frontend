@@ -39,6 +39,7 @@ const SearchBar = () => {
   return (
     <>
       <Autocomplete
+        id="autocomplete-search"
         noOptionsText="No data"
         options={options}
         getOptionLabel={(option) => option.lastName || ""}
