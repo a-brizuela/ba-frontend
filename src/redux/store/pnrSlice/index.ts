@@ -3,7 +3,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const fetchPnr = createAsyncThunk("getPnr", async (lastName: string) => {
   if (lastName.length >= 3) {
     const response = await fetch(
-      `http://localhost:8000/pnr?lastName=${lastName}`
+      `http://localhost:8000/pnr-web?lastName=${lastName}`
+    )
+      .then((response) => response.json())
+      .then((data) => data);
+
+    if (response.length > 0) {
+      return response;
+    } 
+    
+    return response;
+  }
+});
+
+export const fetchPnrMobile = createAsyncThunk("getPnr", async (lastName: string) => {
+  if (lastName.length >= 3) {
+    const response = await fetch(
+      `http://localhost:8000/pnr-web?lastName=${lastName}`
     )
       .then((response) => response.json())
       .then((data) => data);
@@ -26,6 +42,15 @@ const initialState = {
     ticketing: "",
     travelAgency: "",
     remarks: "",
+  },
+  dataMobile: {
+    pnr: "",
+    bookingReference: "",
+    travelers: "",
+    itinerary: "",
+    contactInformation: "",
+    ticketing: "",
+    travelAgency: "",
   },
   isLoading: true,
   error: null as string | null,
